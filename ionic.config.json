@@ -1,0 +1,7 @@
+{
+  "name": "hackernet",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
