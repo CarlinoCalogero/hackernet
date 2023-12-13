@@ -10,4 +10,12 @@
       <ion-title size="large">profile</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div *ngIf =[user]>
+    <div>Username: {{user.id}}</div>
+    <div>Date of Creation: {{user.created*1000|date}}</div>
+    <div>Karma: {{user.karma}}</div>
+    <div *ngIf = [user.about]>About: {{user.about}}</div>
+    <div *ngIf = [user.delay]>Delay: {{user.delay}}</div>
+    <div>Submissions: {{getUserSubmissions()}}</div>
+  </div>
 </ion-content>

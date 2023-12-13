@@ -1,8 +1,8 @@
 export interface User { 
     id:string
-    creatd:number
+    created:number
     karma:number
     about?:string
     delay?:number
-    submissions?:number[]
+    submitted?:number[]
 }
