@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Profile Page of {{user.id}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Profile Page of {{user.id}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div>Username: {{user.id}}</div>
+  <div>Date of Creation: {{user.created*1000 | date}}</div>
+  <div>Karma: {{user.karma}}</div>
+  <div>Delay: {{user.delay? user.delay : "Not set."}}</div>
+  <div>Submissions: {{user.submissions? JSON.stringify(user.submissions) : "The user has not posted any article"}}</div>
+</ion-content>
