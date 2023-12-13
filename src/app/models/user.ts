@@ -1,7 +1,8 @@
-export interface User{
+export interface User { 
     id:string
-    created:number
+    creatd:number
     karma:number
+    about?:string
     delay?:number
     submissions?:number[]
 }
