@@ -34,7 +34,7 @@ const routes: Routes = [
         loadChildren: () => import('../article/article.module').then(m => m.ArticlePageModule)
       },
       {
-        path: 'comments',
+        path: 'comments/:username',
         loadChildren: () => import('../comments/comments.module').then(m => m.CommentsPageModule)
       }
     ]

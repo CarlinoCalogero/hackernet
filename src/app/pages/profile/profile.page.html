@@ -31,7 +31,7 @@
     <ion-card-header>
       <ion-card-title>Submissions</ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="user.submitted !== undefined; then subLink else mess"></ion-card-content>
+    <ion-card-content *ngIf="user!.submitted !== undefined; then subLink else mess"></ion-card-content>
     <ng-template #subLink>
       <ion-button (click)="toArticles()">Articles</ion-button>
       <ion-button (click)="toComments()">Comments</ion-button>

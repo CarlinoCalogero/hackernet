@@ -32,7 +32,7 @@ export class ProfilePage implements OnInit {
   }
   toComments(){
     console.log("to User Comments")
-    this.navController.navigateForward(`/comments?by=${this.user?.id}`)
+    this.navController.navigateForward(`/comments/${this.user?.id}`)
   }
   isUserReady(){
     if(!this.user)

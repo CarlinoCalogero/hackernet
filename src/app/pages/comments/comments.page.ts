@@ -18,16 +18,14 @@ export class CommentsPage implements OnInit {
   
   constructor(
     private commentService: CommentService, private userService:UserService,private route:ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((value)=>{
-      if(value["by"]){
-        this.userService.getUser1(value["by"]).subscribe((user)=>{
-          this.userSubmitted = user?.submitted!
-          this.loadUserComments()
-        })
-      }
+    const username = this.route.snapshot.params["username"]
+    this.userService.getUser1(username).subscribe((user)=>{
+      console.log(user)
+      this.userSubmitted = user?.submitted!
+      this.loadUserComments()
     })
   }
 
