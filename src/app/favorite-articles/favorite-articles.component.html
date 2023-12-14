@@ -1,0 +1,12 @@
+<div *ngIf="favoriteArticles.length > 0">
+  <div *ngFor="let article of favoriteArticles">
+    <p>{{ article.title }}</p>
+    <button (click)="removeFromFavorites(article)">Rimuovi dai preferiti</button>
+  </div>
+</div>
+
+<!-- Se non ci sono articoli preferiti -->
+<p *ngIf="isFavoritesEmpty">Nessun articolo preferito al momento.</p>
+<p *ngIf="isFavoritesEmpty">Aggiungi un nuovo articolo ai preferiti:</p>
+<!-- Aggiunta di un input o form per inserire le informazioni del nuovo articolo -->
+<button *ngIf="isFavoritesEmpty" (click)="openAddToFavoritesDialog()">Aggiungi ai preferiti</button>
