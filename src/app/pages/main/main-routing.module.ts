@@ -7,10 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: MainPage,
-    children:[
+    children: [
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
         path: '',
@@ -19,15 +19,24 @@ const routes: Routes = [
       },
       {
         path: 'profile/:username',
-        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
+        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
         path: 'search',
-        loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
+        loadChildren: () => import('../search/search.module').then(m => m.SearchPageModule)
       },
       {
         path: 'favourites',
-        loadChildren: () => import('../favourites/favourites.module').then( m => m.FavouritesPageModule)
+        loadChildren: () => import('../favourites/favourites.module').then(m => m.FavouritesPageModule)
+      },
+      ,
+      {
+        path: 'article',
+        loadChildren: () => import('../article/article.module').then(m => m.ArticlePageModule)
+      },
+      {
+        path: 'comments',
+        loadChildren: () => import('../comments/comments.module').then(m => m.CommentsPageModule)
       },
     ]
   }
@@ -37,4 +46,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainPageRoutingModule {}
+export class MainPageRoutingModule { }
