@@ -29,7 +29,6 @@ const routes: Routes = [
         path: 'favourites',
         loadChildren: () => import('../favourites/favourites.module').then(m => m.FavouritesPageModule)
       },
-      ,
       {
         path: 'article',
         loadChildren: () => import('../article/article.module').then(m => m.ArticlePageModule)
@@ -37,7 +36,7 @@ const routes: Routes = [
       {
         path: 'comments',
         loadChildren: () => import('../comments/comments.module').then(m => m.CommentsPageModule)
-      },
+      }
     ]
   }
 ];
