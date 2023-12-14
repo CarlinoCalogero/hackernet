@@ -10,4 +10,22 @@
       <ion-title size="large">search</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="search($event)">
+  </ion-searchbar>
+  <ion-list [inset]="true" >
+    <ion-item>
+      <ion-select label="Filters" [multiple]="true" (ionChange)="handleSelection($event)">
+        <ion-select-option value="articles">Articles</ion-select-option>
+        <ion-select-option value="comments">Comments</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list [inset]="true" *ngIf="searchTerm">
+    <ion-item *ngFor="let item of resultsArticles">
+      <ion-label>{{item.title}}</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let item of resultsComments">
+      <ion-label>{{item.comment_text}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
