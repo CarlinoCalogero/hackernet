@@ -15,22 +15,23 @@ export class UserService {
     this.httpClient = httpClient
   }
 
-  async setUser(username:string):Promise<boolean> {
+  async setUser(username:string):Promise<User|undefined> {
     if (this.user) {
       if(this.user.id ===username)
-        return true
+        return this.user
     }
     const subscription = this.httpClient.get(this.url+username+'.json').pipe(take(1))
     const isFound = await firstValueFrom(subscription) as User
     console.log(isFound)
     if(isFound) {
       this.user = isFound
-      return true
+      return this.user
     }
-    return false
+    return undefined
   }
 
   getUser():User|undefined {
-    return this.user? {...this.user}:undefined
-  } 
+    return this.user?{...this.user}:undefined
+  }
+   
 }

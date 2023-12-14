@@ -12,8 +12,9 @@ export class HomePage {
   constructor(private userSevice:UserService,private navController:NavController) {}
 
   async navToProfile(){
-    await this.userSevice.setUser("ciao")
-    this.navController.navigateForward("/profile/ciao")
+    const user= await this.userSevice.setUser("ciao")
+    if(user)
+      this.navController.navigateForward("/profile/"+user.id)
   }
 
 }

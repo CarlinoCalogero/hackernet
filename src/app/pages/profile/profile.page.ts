@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,19 +9,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  protected user:User
-  private userService:UserService
-  constructor(userService:UserService) {
-    this.userService = userService
+  protected user:User|undefined
+
+  constructor(private userService:UserService) {
     this.user = this.userService.getUser()!
   }
 
   ngOnInit() {
   }
-  getUserSubmissions(){
-    if(this.user.submitted){
-      return JSON.stringify(this.user.submitted)
-    }
-    return "No submissions were posted."
+  toSubmissions(){
+    console.log("Navigate to Submissions Page")
   }
 }
