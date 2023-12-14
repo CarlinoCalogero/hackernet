@@ -18,7 +18,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'profile/:username',
+        path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {

@@ -1,5 +1,6 @@
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="isUserReady(); then userCard else loading"></ion-content>
+<ng-template #userCard>
   <ion-card>
     <ion-card-header>
       <ion-card-title>User Info</ion-card-title>
@@ -26,13 +27,30 @@
           <ion-label>{{user!.delay}}</ion-label>
         </ion-item>
    </ion-card-content>
-  </ion-card>
-  <ion-card>
+   <ion-card>
     <ion-card-header>
       <ion-card-title>Submissions</ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="user!.submitted !== undefined; then subLink else mess"></ion-card-content>
-    <ng-template #subLink><ion-button (click)="toSubmissions()">Click to check</ion-button></ng-template>
+    <ion-card-content *ngIf="user.submitted !== undefined; then subLink else mess"></ion-card-content>
+    <ng-template #subLink>
+      <ion-button (click)="toArticles()">Articles</ion-button>
+      <ion-button (click)="toComments()">Comments</ion-button>
+    </ng-template>
     <ng-template #mess><ion-label>No submission were created</ion-label></ng-template>
   </ion-card>
-</ion-content>
+  </ion-card>
+</ng-template>
+
+<ng-template #loading>
+  <ion-content *ngIf="loaded;then notFound else loadingAnim"></ion-content>
+</ng-template>
+
+<ng-template #notFound>
+  <div class="center-content">
+    <ion-label>User Not Found</ion-label>
+  </div>
+</ng-template>
+
+<ng-template #loadingAnim>
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-template>
