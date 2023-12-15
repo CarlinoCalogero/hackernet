@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { HtmlToTextPipe } from 'src/app/pipes/html-to-text.pipe';
+import { PipeModule } from 'src/app/modules/pipe/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    PipeModule
   ],
-  declarations: [ProfilePage,HtmlToTextPipe]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}
