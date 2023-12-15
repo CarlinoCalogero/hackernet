@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,26 +10,24 @@ import { Observable } from 'rxjs';
 export class SearchService {
 
   private httpClient: HttpClient;
-  private url = {
+  private userService: UserService;
+  private articlesURL = {
     upperPart: 'https://hn.algolia.com/api/v1/search?query=',
-    lowerPart: '&tags=',
-    storyFilter: 'story',
-    commentFilter: 'comment'
-  } 
+    lowerPart: '&tags=story'
+  };
 
-  constructor(httpClient: HttpClient) {
+  constructor(httpClient: HttpClient, userService: UserService) {
     this.httpClient = httpClient;
+    this.userService = userService;
   }
 
-  searchArticles(): Observable<any> {
-    const url = this.url.upperPart + this.url.lowerPart + this.url.storyFilter;
+  async searchArticles(query: string): Promise<Observable<any>> {
+    const url = this.articlesURL.upperPart + query + this.articlesURL.lowerPart;
     return this.httpClient.get(url);
   }
 
-  searchComments(): Observable<any> {
-    const url = this.url.upperPart  + this.url.lowerPart + this.url.commentFilter;
-    return this.httpClient.get(url);
+  searchUsers(query: string): Observable<User | undefined> {
+    return this.userService.getUser1(query);
   }
-
 
 }
