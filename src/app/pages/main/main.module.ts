@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { MainPageRoutingModule } from './main-routing.module';
 
 import { MainPage } from './main.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+
+import { MenuComponentModule } from 'src/app/components/menu/menu.component.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     MainPageRoutingModule,
-    ComponentsModule
+    MenuComponentModule
   ],
   declarations: [MainPage]
 })

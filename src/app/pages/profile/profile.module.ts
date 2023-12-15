@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { PipeModule } from 'src/app/modules/pipe/pipe.module';
+import { PipeModule } from 'src/app/components/pipe/pipe.module';
 
 @NgModule({
   imports: [

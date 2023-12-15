@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ArticlePageRoutingModule } from './article-routing.module';
 
 import { ArticlePage } from './article.page';
-import { CommentModule } from 'src/app/modules/comment/comment.module';
-import { IframeModule } from 'src/app/modules/iframe/iframe.module';
+import { CommentModule } from 'src/app/components/comment/comment.module';
+import { IframeModule } from 'src/app/components/iframe/iframe.module';
 
 @NgModule({
   imports: [
