@@ -21,7 +21,7 @@ export class SearchService {
     this.userService = userService;
   }
 
-  async searchArticles(query: string): Promise<Observable<any>> {
+  searchArticles(query: string): Observable<any>{
     const url = this.articlesURL.upperPart + query + this.articlesURL.lowerPart;
     return this.httpClient.get(url);
   }

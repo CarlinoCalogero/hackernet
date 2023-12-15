@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { SearchService } from 'src/app/services/search.service';
-import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -24,22 +22,25 @@ export class SearchPage implements OnInit {
   
   handleSelection(event:any){
     this.currentFilter = event.target.value;
-    this.query = ""; // i'll remove this later, i'll handle it to make the user change the filter and update the query
     this.reset();
+    this.search(this.query);
   }
 
-  async search(event:any){
-    this.query = event.target.value;
+  search(event?:any, query?:string){
+    if (event.target !== undefined) {
+      this.query = event.target.value;
+    } else if (query !== undefined) {
+      this.query = query;
+    }
 
     if (this.query !== "" && this.currentFilter.includes("articles")) {
-      (await this.searchService.searchArticles(this.query)).subscribe((data:any) => {
-        console.log(data.hits);
+      this.searchService.searchArticles(this.query).subscribe((data:any) => {
         this.articles = data.hits;
       });
     }
 
     if (this.query !== "" && this.currentFilter.includes("users")) {
-      this.searchService.searchUsers(this.query).subscribe((user:User|undefined) => {
+      this.searchService.searchUsers(this.query).subscribe((user:User | undefined) => {
         this.user = user;
       });
     }
