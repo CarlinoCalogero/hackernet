@@ -5,8 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class HtmlToTextPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(htmlText:string): string{
+    const div = document.createElement("div")
+    div.innerHTML = htmlText
+    return div.innerText
   }
 
 }

@@ -8,7 +8,6 @@ import { CommentsPageRoutingModule } from './comments-routing.module';
 
 import { CommentsPage } from './comments.page';
 import { CommentModule } from 'src/app/components/comment/comment.module';
-import { HtmlToTextPipe } from 'src/app/pipes/html-to-text.pipe';
 
 @NgModule({
   imports: [
