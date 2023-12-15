@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentModule } from './components/comment/comment.module';
 import { IframeModule } from './components/iframe/iframe.module';
 import { MenuComponentModule } from './components/menu/menu.component.module';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, MenuComponentModule, CommentModule, IframeModule],

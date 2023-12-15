@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS HACKERNET;
+USE HACKERNET;
+
+CREATE TABLE IF NOT EXISTS Favorites-articles (
+    ID INT PRIMARY KEY,
+    Titolo VARCHAR(255),
+    Contenuto TEXT,
+    DataPubblicazione DATE
+);
+
+

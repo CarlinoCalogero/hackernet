@@ -7,6 +7,9 @@ import { Article } from '../models/article.models';
   providedIn: 'root'
 })
 export class ArticleService {
+  getSuggestedArticles(): any[] {
+    throw new Error('Method not implemented.');
+  }
 
   private articleURL = {
     upperPart: "https://hacker-news.firebaseio.com/v0/item/",
