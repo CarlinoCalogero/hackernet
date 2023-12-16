@@ -19,6 +19,16 @@
         <ion-select-option value="users">Users</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item *ngIf="isArticleSelected">
+      <ion-select label="Article filters" [multiple]="true" (ionChange)="handleArticleFilterSelection($event)">
+        <ion-select-option value="story">Story</ion-select-option>
+        <ion-select-option value="author_">Author</ion-select-option>
+        <ion-select-option value="ask_hn">Ask</ion-select-option>
+        <ion-select-option value="show_hn">Show</ion-select-option>
+        <ion-select-option value="job">Job</ion-select-option>
+        <ion-select-option value="poll">Poll</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-list>
   <ion-list [inset]="true" *ngIf="query">
     <ion-item *ngFor="let item of articles">

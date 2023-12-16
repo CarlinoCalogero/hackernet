@@ -11,9 +11,11 @@ import { SearchService } from 'src/app/services/search.service';
 export class SearchPage implements OnInit {
 
   query: string = '';
-  currentFilter: string[] = [];
+  currentFilters: string[] = [];
+  currentArticleFilters: string[] = [];
   articles: any[] = [];
   user: User|undefined;
+  isArticleSelected: boolean = false;
 
   constructor(private searchService: SearchService) { }
 
@@ -21,9 +23,22 @@ export class SearchPage implements OnInit {
   }
   
   handleSelection(event:any){
-    this.currentFilter = event.target.value;
+    this.currentFilters = event.target.value;
+    this.checkIfArticleSelected(event);
     this.reset();
     this.search(this.query);
+  }
+
+  handleArticleFilterSelection(event:any){
+    this.currentArticleFilters = event.target.value;
+    this.reset();
+    this.search(this.query);
+  }
+
+
+  checkIfArticleSelected(event:any) {
+    this.isArticleSelected = event.target.value.includes("articles");
+    return this.isArticleSelected;
   }
 
   search(event?:any, query?:string){
@@ -33,23 +48,32 @@ export class SearchPage implements OnInit {
       this.query = query;
     }
 
-    if (this.query !== "" && this.currentFilter.includes("articles")) {
-      this.searchService.searchArticles(this.query).subscribe((data:any) => {
-        this.articles = data.hits;
-      });
-    }
-
-    if (this.query !== "" && this.currentFilter.includes("users")) {
-      this.searchService.searchUsers(this.query).subscribe((user:User | undefined) => {
-        this.user = user;
-      });
-    }
+    this.searchArticles();
+    this.searchUsers();
 
     if (this.query === "") {
       this.reset();
     }
 
   }
+
+  private searchArticles(){
+    if (this.query !== "" && this.currentFilters.includes("articles")) {
+      this.searchService.searchArticles(this.query, this.currentArticleFilters).subscribe((data:any) => {
+        this.articles = data.hits;
+        this.articles = this.articles.filter((article:any) => !article._tags.includes("comment"));
+      });
+    }
+  }
+
+  private searchUsers() {
+    if (this.query !== "" && this.currentFilters.includes("users")) {
+      this.searchService.searchUsers(this.query).subscribe((user:User | undefined) => {
+        this.user = user;
+      });
+    }
+  }
+
 
   reset() {
     this.articles = [];
