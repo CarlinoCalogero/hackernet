@@ -16,19 +16,16 @@ export class ProfilePage implements OnInit {
   constructor(private userService:UserService, private route:ActivatedRoute, private navController:NavController) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((value)=>{
-      if(value["id"]){
-        this.userService.getUser1(value["id"]).subscribe((user)=>{
-          this.user = user
-          this.loaded = true
-          console.log("Loaded and found",this.user)
-        })
-      }
+    const userID = this.route.snapshot.params['username']
+    this.userService.getUser(userID).subscribe((user)=>{
+      this.user = user
+      this.loaded = true
+      console.log("Loaded and found",this.user)
     })
   }
   toArticles(){
-    console.log("To Articles")
-    //this.navController.navigateForward("/articles")
+    console.log("to User Suggested Articles")
+    this.navController.navigateForward(`/suggested/${this.user?.id}`)
   }
   toComments(){
     console.log("to User Comments")

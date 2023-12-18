@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Personal Statistics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Personal Statistics</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card *ngIf="stats">
+    <ion-list>
+      <ion-item slot="start">
+        Daily : {{stats.daily}}
+      </ion-item>
+      <ion-item slot="start">
+        Monthly : {{stats.monthly}}
+      </ion-item>
+      <ion-item slot="start">
+        Yearly : {{stats.yearly}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

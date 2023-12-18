@@ -12,7 +12,7 @@ export class HomePage {
   constructor(private userSevice:UserService,private navController:NavController) {}
 
   navToProfile(){
-    this.navController.navigateForward("/profile?id=ciao")
+    this.navController.navigateForward("/profile/ciao")
   }
 
 }

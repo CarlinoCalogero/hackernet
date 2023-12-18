@@ -10,4 +10,15 @@
       <ion-title size="large">favourites</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-button (click)="addFav()">
+    Clicca
+  </ion-button>
+  <ion-list>
+    <ion-item *ngFor="let fav of favourites; index as i">
+      Article: {{fav}}
+      <ion-button slot="end" (click)="delFav(i)">
+        <ion-icon name="logo-python"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

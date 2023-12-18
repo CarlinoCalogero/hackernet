@@ -17,6 +17,13 @@ export class SearchPage implements OnInit {
   user: User|undefined;
   isArticleSelected: boolean = false;
 
+  private timeStamps = {
+    lastHour: 3600,
+    lastDay: 86400,
+    lastWeek: 604800,
+    lastMonth: 2592000
+  };
+
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {

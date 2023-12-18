@@ -18,7 +18,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'profile',
+        path: 'profile/:username',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
@@ -36,6 +36,14 @@ const routes: Routes = [
       {
         path: 'comments/:username',
         loadChildren: () => import('../comments/comments.module').then(m => m.CommentsPageModule)
+      },
+      {
+        path: 'suggested/:username',
+        loadChildren: () => import('../suggested/suggested.module').then(m => m.SuggestedPageModule)
+      },
+      {
+        path: 'personal-stats',
+        loadChildren: () => import('../personal-stats/personal-stats.module').then( m => m.PersonalStatsPageModule)
       }
     ]
   }

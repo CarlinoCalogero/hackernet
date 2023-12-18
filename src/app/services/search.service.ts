@@ -34,7 +34,7 @@ export class SearchService {
   }
 
   searchUsers(query: string): Observable<User | undefined> {
-    return this.userService.getUser1(query);
+    return this.userService.getUser(query);
   }
 
   private buildArticleURL(query: string, tags: string[]): string {

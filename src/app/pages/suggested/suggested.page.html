@@ -1,0 +1,10 @@
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let suggestedArticle of showedSuggestedArticles">
+      <app-article-snippet [article]="suggestedArticle"></app-article-snippet>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
