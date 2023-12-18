@@ -13,16 +13,10 @@ export class SearchPage implements OnInit {
   query: string = '';
   currentFilters: string[] = [];
   currentArticleFilters: string[] = [];
+  currentTimeFilters: string[] = [];
   articles: any[] = [];
   user: User|undefined;
   isArticleSelected: boolean = false;
-
-  private timeStamps = {
-    lastHour: 3600,
-    lastDay: 86400,
-    lastWeek: 604800,
-    lastMonth: 2592000
-  };
 
   constructor(private searchService: SearchService) { }
 
@@ -41,6 +35,12 @@ export class SearchPage implements OnInit {
     this.reset();
     this.search(this.query);
   }
+
+  handleTimeFilterSelection(event:any){
+    this.currentTimeFilters = event.target.value;
+    this.reset();
+    this.search(this.query);
+  } 
 
 
   checkIfArticleSelected(event:any) {
@@ -66,7 +66,7 @@ export class SearchPage implements OnInit {
 
   private searchArticles(){
     if (this.query !== "" && this.currentFilters.includes("articles")) {
-      this.searchService.searchArticles(this.query, this.currentArticleFilters).subscribe((data:any) => {
+      this.searchService.searchArticles(this.query, this.currentArticleFilters, this.currentTimeFilters).subscribe((data:any) => {
         this.articles = data.hits;
         this.articles = this.articles.filter((article:any) => !article._tags.includes("comment"));
       });

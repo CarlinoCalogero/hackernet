@@ -27,11 +27,14 @@
         <ion-select-option value="show_hn">Show</ion-select-option>
         <ion-select-option value="job">Job</ion-select-option>
         <ion-select-option value="poll">Poll</ion-select-option>
-          <ion-select label="Floating label" label-placement="floating">
-            <ion-select-option value="apple">Apple</ion-select-option>
-            <ion-select-option value="banana">Banana</ion-select-option>
-            <ion-select-option value="orange">Orange</ion-select-option>
-          </ion-select>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="isArticleSelected">
+      <ion-select label="Time filters" (ionChange)="handleTimeFilterSelection($event)">
+        <ion-select-option value="lastHour">Last hour</ion-select-option>
+        <ion-select-option value="lastDay">Last day</ion-select-option>
+        <ion-select-option value="lastWeek">Last week</ion-select-option>
+        <ion-select-option value="lastMonth">Last month</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
