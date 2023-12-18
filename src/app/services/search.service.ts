@@ -52,14 +52,10 @@ export class SearchService {
     if(timeFilters.length > 0){
       if(this.buildArticleTimeSubstring(query, articleTags, timeFilters) === false) {
         this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.upperPart + this.generateTimestamp(timeFilters);
-        return this.url;
-      } else {
-        return this.url;
       }
     } else if (timeFilters.length < 0) {
         if (this.buildArticleSubstring(query, articleTags) === false) {
           this.url = this.articlesURL.upperPart + query;
-          return this.url;
         }
     }
     return this.url;
