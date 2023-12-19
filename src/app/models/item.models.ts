@@ -12,6 +12,6 @@ export class Item{
     score!:number
     descendants!:number
     parts!:number[]
-
+    dead!:boolean
     protected constructor(){}
 }

@@ -41,7 +41,8 @@ export class SuggestedPage implements OnInit {
       this.articleService.getArticle(this.userSuggestions[i]).subscribe(
         (res) => {
           if (res.type != "comment") {
-            this.userSuggestedArticles.push(res)
+            if(!res.deleted && !res.dead)
+              this.userSuggestedArticles.push(res)
           }
           this.checkIfSuggestedArticlesAreLoaded()
         },
