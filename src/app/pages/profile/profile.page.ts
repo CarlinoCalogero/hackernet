@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.models';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({

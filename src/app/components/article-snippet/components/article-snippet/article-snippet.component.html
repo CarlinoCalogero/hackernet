@@ -1,3 +1,10 @@
-<div>
-  <h1>{{article.title | htmlToText}}</h1>
-</div>
+<ion-card (click)="onClick()">
+  <ion-card-header>
+    <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
+     by {{article.by}} {{article.time*1000 | date}}
+  </ion-card-header>
+  <ion-card-content>
+    <ion-label>{{article.score}} points {{article.kids? article.kids.length : 0}} comments </ion-label>
+    <ion-label slot="center">{{article.url | htmlToText}}</ion-label>
+  </ion-card-content>
+</ion-card>

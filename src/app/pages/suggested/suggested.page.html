@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-  <ion-list>
+  <ion-list *ngIf="userSuggestedArticles.length > 0">
     <ion-item *ngFor="let suggestedArticle of showedSuggestedArticles">
       <app-article-snippet [article]="suggestedArticle"></app-article-snippet>
     </ion-item>

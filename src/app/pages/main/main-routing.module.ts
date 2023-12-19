@@ -30,7 +30,7 @@ const routes: Routes = [
         loadChildren: () => import('../favourites/favourites.module').then(m => m.FavouritesPageModule)
       },
       {
-        path: 'article',
+        path: 'article/:articleID',
         loadChildren: () => import('../article/article.module').then(m => m.ArticlePageModule)
       },
       {

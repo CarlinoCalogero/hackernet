@@ -16,7 +16,8 @@ export class ArticlePage implements OnInit {
   protected article!: Article
 
   constructor(
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private route:ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -24,7 +25,10 @@ export class ArticlePage implements OnInit {
   }
 
   async loadArticle() {
-    this.articleService.getArticle(8863).subscribe(
+    const articleID = this.route.snapshot.params["articleID"]
+    if(!articleID)
+      return
+    this.articleService.getArticle(articleID).subscribe(
       (res) => {
         this.article = res
       },
