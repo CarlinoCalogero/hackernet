@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <div *ngIf="article != null">
-    <ion-title>{{article.title}}</ion-title>
+    <ion-title>{{article.title}} <app-share-button [article]="article"></app-share-button></ion-title>
     <app-iframe [url]="article.url"></app-iframe>
     <app-comment [article]="article"></app-comment>
   </div>
