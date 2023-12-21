@@ -12,8 +12,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class FavouritesPage implements OnInit {
   protected favourites: number[] = []
   protected userFavourites: Article[] = []
-  private i: number = 1
-  private j: number = 2
+  protected hasLoaded:boolean=false
 
   constructor(private database: DatabaseService, private articleService: ArticleService) {
 
@@ -24,7 +23,11 @@ export class FavouritesPage implements OnInit {
   }
 
   ionViewWillEnter(){
-      this.loadFavs()
+    this.loadFavs()
+  }
+  ionViewWillLeave(){
+    this.hasLoaded=false
+    this.userFavourites = []
   }
   async loadFavs() {
     this.userFavourites = []
@@ -34,14 +37,15 @@ export class FavouritesPage implements OnInit {
         this.userFavourites.push(res)
       })
     }
+    this.hasLoaded= this.checkLoadingStatus()
   }
 
   async delFav(articleID: number): Promise<boolean> {
     if (confirm("Do you really wish to remove the article from favourites?")) {
       this.favourites.splice(this.favourites.indexOf(articleID), 1)
-      this.removeFavourite(articleID)
-      /*await this.database.setFavourites(this.favourites)
-      await this.loadFavs()*/
+      //this.removeFavourite(articleID)
+      await this.database.setFavourites(this.favourites)
+      await this.loadFavs()
       return true
     }
     return false
@@ -65,6 +69,8 @@ export class FavouritesPage implements OnInit {
     }
   }
 
-
+  private checkLoadingStatus(){
+    return this.userFavourites.length === this.favourites.length
+  }
 
 }

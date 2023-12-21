@@ -1,5 +1,23 @@
-<ion-content [fullscreen]="true">
-  <div *ngIf="isAreCommentLoaded">
-    <app-comment [userComments]="userComments"></app-comment>
+<div *ngIf="userComments.length > 0 && isAreCommentLoaded; then commentList else loading"></div>
+
+<ng-template #commentList>
+  <ion-content [fullscreen]="true">
+    <div>
+      <app-comment [userComments]="userComments"></app-comment>
+    </div>
+  </ion-content>
+</ng-template>
+
+<ng-template #loading>
+  <div *ngIf="isAreCommentLoaded; then emptyCommentList else loadAnim"></div>
+</ng-template>
+
+<ng-template #emptyCommentList>
+  <div class="center-content">
+    <ion-label>This User hasn't commented in any article</ion-label>
   </div>
-</ion-content>
+</ng-template>
+
+<ng-template #loadAnim>
+  <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+</ng-template>

@@ -1,7 +1,25 @@
-<ion-content [fullscreen]="true">
-  <ion-list *ngIf="userFavourites.length > 0">
-    <ion-item *ngFor="let fav of userFavourites; index as i">
-      <app-article-snippet [article]="fav" [showHeartIcon]="true" [parentApi]="getParentMethod()"></app-article-snippet>
-    </ion-item>
-  </ion-list>
-</ion-content>
+<div *ngIf="userFavourites.length > 0; then favList else loading"></div>
+
+<ng-template #favList>
+  <ion-content [fullscreen]="true">
+    <ion-list>
+      <ion-item *ngFor="let fav of userFavourites; index as i">
+        <app-article-snippet [article]="fav" [showHeartIcon]="true" [parentApi]="getParentMethod()"></app-article-snippet>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ng-template>
+
+<ng-template #loading>
+  <div *ngIf="hasLoaded && userFavourites.length == 0; then emptyFavList else loadAnim"></div>
+</ng-template>
+
+<ng-template #emptyFavList>
+  <div class="center-content">
+    <ion-label>You don't have any favourite article.</ion-label>
+  </div>
+</ng-template>
+
+<ng-template #loadAnim>
+  <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+</ng-template>

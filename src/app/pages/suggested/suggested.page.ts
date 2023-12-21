@@ -19,7 +19,7 @@ export class SuggestedPage implements OnInit {
 
   protected showedSuggestedArticles: Article[] = []
   protected numberOfLoadedSuggestedArticles: number = 10
-
+  
   constructor(
     private articleService: ArticleService,
     private userService: UserService,

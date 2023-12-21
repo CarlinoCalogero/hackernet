@@ -1,5 +1,8 @@
-<ion-content [fullscreen]="true">
-  <ion-list *ngIf="userSuggestedArticles.length > 0">
+<div  *ngIf="showedSuggestedArticles.length > 0; then suggestedList else loading"></div>
+
+<ng-template #suggestedList>
+ <ion-content [fullscreen]="true">
+  <ion-list>
     <ion-item *ngFor="let suggestedArticle of showedSuggestedArticles">
       <app-article-snippet class="articleSnippet" [article]="suggestedArticle"></app-article-snippet>
     </ion-item>
@@ -7,4 +10,19 @@
   <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-</ion-content>
+ </ion-content>
+</ng-template>
+
+<ng-template #loading>
+  <div *ngIf="isAreSuggestedArticlesLoaded; then emptySuggested else loadAnim"></div>
+</ng-template>
+
+<ng-template #loadAnim>
+  <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+</ng-template>
+
+<ng-template #emptySuggested>
+  <div class="center-content">
+    <ion-label>This User hasn't posted any article</ion-label>
+  </div>
+</ng-template>
