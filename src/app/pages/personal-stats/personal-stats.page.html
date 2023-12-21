@@ -1,25 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Personal Statistics</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Personal Statistics</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-card *ngIf="stats">
-    <ion-list>
-      <ion-item slot="start">
-        Daily : {{stats.daily}}
+  <ion-card>
+    <ion-card-header>
+      <h1 class="title">Personal</h1>
+    </ion-card-header>
+    <ion-list *ngIf="stats">
+      <ion-item>
+        <ion-item slot="start">
+          Dayly read articles : {{stats.daily}}
+        </ion-item>
       </ion-item>
       <ion-item slot="start">
-        Monthly : {{stats.monthly}}
+        Monthly read articles : {{stats.monthly}}
       </ion-item>
       <ion-item slot="start">
-        Yearly : {{stats.yearly}}
+        Yearly read articles: {{stats.yearly}}
+      </ion-item>
+      <ion-item slot="start">
+        Most recurrent word in articles' title: {{stats.yearly}}
+      </ion-item>
+      <ion-item slot="start">
+        Most read author: {{stats.yearly}}
+      </ion-item>
+      <ion-item slot="start">
+        Most read author: {{stats.yearly}}
       </ion-item>
     </ion-list>
   </ion-card>

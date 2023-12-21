@@ -1,7 +1,4 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>search</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -30,7 +27,8 @@
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isArticleSelected">
-      <ion-select label="Time filters" (ionChange)="handleTimeFilterSelection($event)">
+      <ion-select label="Time filters" [(ngModel)]="defaultTimeFilter" (ionChange)="handleTimeFilterSelection($event)">
+        <ion-select-option value="none">None</ion-select-option>
         <ion-select-option value="lastHour">Last hour</ion-select-option>
         <ion-select-option value="lastDay">Last day</ion-select-option>
         <ion-select-option value="lastWeek">Last week</ion-select-option>

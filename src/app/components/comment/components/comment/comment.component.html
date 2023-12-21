@@ -1,6 +1,7 @@
-<ion-list>
+<ion-list lines="none">
   <ion-item *ngFor="let comment of showedComments">
-    <app-nested-comment [nestedComment]="comment"></app-nested-comment>
+    <app-nested-comment class="nestedComment" *ngIf="comment.parent.time" [nestedComment]="comment"
+      [isParentComment]="true"></app-nested-comment>
   </ion-item>
 </ion-list>
 <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">

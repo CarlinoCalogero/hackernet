@@ -1,0 +1,18 @@
+
+.title{
+    margin:0 auto;
+    font-weight: bolder;
+    color: #FF6500;
+}
+ion-label{
+    max-width: 6rem;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-width: 100%;
+    margin-bottom: 1rem;
+    
+}

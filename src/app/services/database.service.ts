@@ -8,13 +8,13 @@ enum KEYS {
   stats = 'stats'
 }
 // These two are subject to change most definitely...
-interface Stats{
-  daily:number
-  monthly:number
-  yearly:number
+interface Stats {
+  daily: number
+  monthly: number
+  yearly: number
 }
-interface Favourites{
-  ids:number[]
+interface Favourites {
+  ids: number[]
 }
 @Injectable({
   providedIn: 'root'
@@ -22,29 +22,42 @@ interface Favourites{
 export class DatabaseService {
 
 
-  constructor(private storage:Storage) {
+  constructor(private storage: Storage) {
     this.storage.defineDriver(cordovaSQLiteDriver)
-  }  
-  async init(){
+  }
+  async init() {
     await this.storage.create()
   }
-  
-  async getFavourites():Promise<number[]>{
-    const favs = await this.storage.get(KEYS.favourites) || [] 
+
+  async getFavourites(): Promise<number[]> {
+    const favs = await this.storage.get(KEYS.favourites) || []
     return favs as number[]
   }
-  
-  async getStats():Promise<Stats>{
-    const favs = await this.storage.get(KEYS.favourites) || {} 
+
+  async getStats(): Promise<Stats> {
+    const favs = await this.storage.get(KEYS.favourites) || {}
     return favs as Stats
   }
 
-  async setFavourites(favsIDs:number[]){
-    const result = await this.storage.set(KEYS.favourites,favsIDs)
+  async setFavourites(favsIDs: number[]) {
+    const result = await this.storage.set(KEYS.favourites, favsIDs)
     return result
   }
-  async setStats(newStats:Stats){
-    const result = await this.storage.set(KEYS.stats,newStats)
+
+  async setStats(newStats: Stats) {
+    const result = await this.storage.set(KEYS.stats, newStats)
     return result
+  }
+
+  async addFavourite(articleID: number) {
+    const favourites = await this.getFavourites();
+    favourites.push(articleID);
+    return await this.setFavourites([...favourites])
+  }
+
+  async removeFavourite(articleID: number) {
+    let favourites = await this.getFavourites();
+    favourites.splice(favourites.indexOf(articleID), 1)
+    return await this.setFavourites([...favourites])
   }
 }

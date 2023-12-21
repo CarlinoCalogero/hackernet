@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DatabaseService} from 'src/app/services/database.service';
+import { Component, OnInit, Output } from '@angular/core';
+import { Article } from 'src/app/models/article.models';
+import { ArticleService } from 'src/app/services/article.service';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-favourites',
@@ -8,29 +10,61 @@ import { DatabaseService} from 'src/app/services/database.service';
 })
 
 export class FavouritesPage implements OnInit {
-  protected favourites:number[]=[]
-  private i:number=1
-  private j:number=2
-  constructor(private database:DatabaseService) { 
+  protected favourites: number[] = []
+  protected userFavourites: Article[] = []
+  private i: number = 1
+  private j: number = 2
+
+  constructor(private database: DatabaseService, private articleService: ArticleService) {
 
   }
 
   ngOnInit() {
-    this.loadFavs()
+    
   }
 
-  async loadFavs(){
+  ionViewWillEnter(){
+      this.loadFavs()
+  }
+  async loadFavs() {
+    this.userFavourites = []
     this.favourites = await this.database.getFavourites()
-  }
-  async addFav(){
-    this.favourites.push(this.i++)
-    await this.database.setFavourites(this.favourites)
-    await this.loadFavs()
+    for (const favID of this.favourites) {
+      this.articleService.getArticle(favID).subscribe((res) => {
+        this.userFavourites.push(res)
+      })
+    }
   }
 
-  async delFav(index:number){
-    this.favourites.splice(index,1)
-    await this.database.setFavourites(this.favourites)
-    await this.loadFavs()
+  async delFav(articleID: number): Promise<boolean> {
+    if (confirm("Do you really wish to remove the article from favourites?")) {
+      this.favourites.splice(this.favourites.indexOf(articleID), 1)
+      this.removeFavourite(articleID)
+      /*await this.database.setFavourites(this.favourites)
+      await this.loadFavs()*/
+      return true
+    }
+    return false
   }
+
+  removeFavourite(articleID: number) {
+    for (let i = 0; i < this.userFavourites.length; i++) {
+      const currentFavourite = this.userFavourites[i];
+      if (currentFavourite.id == articleID) {
+        this.userFavourites.splice(i, 1)
+        return
+      }
+    }
+  }
+
+  getParentMethod(): any {
+    return {
+      callParentMethod: async (index: number): Promise<boolean> => {
+        return this.delFav(index)
+      }
+    }
+  }
+
+
+
 }

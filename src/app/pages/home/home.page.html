@@ -1,21 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Home Page
-    </ion-title>
+    <ion-segment value="ask_hn" (ionChange)="loadPage($event)">
+      <ion-segment-button value="ask_hn">
+        <ion-label>Ask</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="show_hn">
+        <ion-label>Show</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="job">
+        <ion-label>Jobs</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home Page</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <div id="container">
-    <strong>App Home Page</strong>
-    <div>
-      <ion-button (click)="navToProfile()">Go to Vagabund's Profile</ion-button>
-    </div>
-  </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content>
+      <ion-list *ngIf="articles.length > 0">
+        <ion-item *ngFor="let article of articles">
+          <app-article-snippet-better-api [article]="article"></app-article-snippet-better-api>
+        </ion-item>
+      </ion-list>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -1,7 +1,23 @@
 <ion-content [fullscreen]="true">
-  <div *ngIf="article != null">
-    <ion-title>{{article.title}} <app-share-button [article]="article"></app-share-button></ion-title>
-    <app-iframe [url]="article.url"></app-iframe>
+  <div class="articleDiv" *ngIf="article != null">
+    <div class="articleHeader">
+      <div class="articleHeaderTitleAndButtons">
+        <h1 class="articleTitle">{{article.title}}</h1>
+        <div class="buttons">
+          <app-share-button slot="end" [article]="article"></app-share-button>
+          <ion-button *ngIf="isFavourite != null" fill="clear" slot="icon-only" (click)="onHeartClick($event)">
+            <ion-icon [name]="isFavourite ? 'heart' : 'heart-outline'"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      <div class="articleHeaderAuthorAndTime">
+        <a href="{{'/profile/'+ article.by}}" class="articleAuthor">by {{article.by}}</a>
+        <label class="articleTime">{{elapsedTime}}</label>
+      </div>
+    </div>
+    <div *ngIf="article.url" class="iFrameDiv">
+      <app-iframe [url]="article.url"></app-iframe>
+    </div>
     <app-comment [article]="article"></app-comment>
   </div>
 </ion-content>

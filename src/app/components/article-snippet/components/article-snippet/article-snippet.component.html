@@ -1,10 +1,16 @@
 <ion-card (click)="onClick()">
-  <ion-card-header>
-    <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
-     by {{article.by}} {{article.time*1000 | date}}
-  </ion-card-header>
+  <div class="cardHeader">
+    <ion-card-header>
+      <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
+      <label>by <a href="{{'/profile/'+article.by}}" (click)="onLinkClick($event)">{{article.by}}</a> on
+        {{article.time*1000 | date}}</label>
+    </ion-card-header>
+    <ion-button *ngIf="showHeartIcon" fill="clear" slot="icon-only" (click)="onHeartClick($event)">
+      <ion-icon [name]="isWasHeartClicked ? 'heart-outline' : 'heart'"></ion-icon>
+    </ion-button>
+  </div>
   <ion-card-content>
     <ion-label>{{article.score}} points {{article.kids? article.kids.length : 0}} comments </ion-label>
-    <ion-label slot="center">{{article.url | htmlToText}}</ion-label>
+    <ion-label *ngIf="article.url" slot="center">{{article.url | htmlToText}}</ion-label>
   </ion-card-content>
 </ion-card>

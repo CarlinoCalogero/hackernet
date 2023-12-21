@@ -15,14 +15,14 @@ export class CommentsPage implements OnInit {
   protected userSubmitted!: number[]
   protected checkedSubmissions: number = 0
   protected isAreCommentLoaded = false
-  
+
   constructor(
-    private commentService: CommentService, private userService:UserService,private route:ActivatedRoute
-  ) {}
+    private commentService: CommentService, private userService: UserService, private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     const username = this.route.snapshot.params["username"]
-    this.userService.getUser(username).subscribe((user)=>{
+    this.userService.getUser(username).subscribe((user) => {
       console.log(user)
       this.userSubmitted = user?.submitted!
       this.loadUserComments()
@@ -34,7 +34,7 @@ export class CommentsPage implements OnInit {
     for (let i = 0; i < this.userSubmitted.length; i++) {
       this.commentService.getComment(this.userSubmitted[i]).subscribe(
         (res) => {
-          if (res.type == "comment") {
+          if (res.type == "comment" && this.checkIfCommentIsAlive(res)) {
             this.userComments.push(res)
           }
           this.checkIfCommentsAreLoaded()
@@ -51,6 +51,19 @@ export class CommentsPage implements OnInit {
     if (this.checkedSubmissions == this.userSubmitted.length) {
       this.isAreCommentLoaded = true
     }
+  }
+
+  /**
+   * 
+   * @param comment 
+   * @returns true if comment is alive, false if comment is dead
+   */
+  private checkIfCommentIsAlive(comment: Comment) {
+    if (!("deleted" in comment))
+      return true
+    if (comment.deleted)
+      return false
+    return true
   }
 
 }

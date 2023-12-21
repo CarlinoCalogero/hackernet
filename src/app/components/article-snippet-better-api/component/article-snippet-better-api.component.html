@@ -1,0 +1,9 @@
+<ion-card (click)="onClick()">
+  <ion-card-header>
+    <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
+     by {{article.author}} {{article.created_at | date}}
+  </ion-card-header>
+  <ion-card-content>
+    <ion-label>{{article.points}} points {{article.num_comments}} comments </ion-label>
+  </ion-card-content>
+</ion-card>

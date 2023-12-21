@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.models';
+import { User } from 'src/app/models/user';
 import { SearchService } from 'src/app/services/search.service';
 
 
@@ -13,7 +13,8 @@ export class SearchPage implements OnInit {
   query: string = '';
   currentFilters: string[] = [];
   currentArticleFilters: string[] = [];
-  currentTimeFilters: string[] = [];
+  currentTimeFilters: string[] = ["none"];
+  defaultTimeFilter: string = "none";
   articles: any[] = [];
   user: User|undefined;
   isArticleSelected: boolean = false;
@@ -38,6 +39,7 @@ export class SearchPage implements OnInit {
 
   handleTimeFilterSelection(event:any){
     this.currentTimeFilters = event.target.value;
+    console.log(this.currentTimeFilters)
     this.reset();
     this.search(this.query);
   } 

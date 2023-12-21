@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleSnippetComponent } from './components/article-snippet/article-snippet.component';
+import { ArticleSnippetBetterApiComponent } from './component/article-snippet-better-api.component';
 import { PipeModule } from 'src/app/pipes/pipe.module';
 import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [ArticleSnippetComponent],
-  exports: [ArticleSnippetComponent],
+  declarations: [ArticleSnippetBetterApiComponent],
+  exports: [ArticleSnippetBetterApiComponent],
   imports: [
     CommonModule,
     IonicModule,
     PipeModule,
   ]
 })
-export class ArticleSnippetModule { }
+export class ArticleSnippetBetterApiModule { }

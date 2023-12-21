@@ -33,7 +33,7 @@ export class CommentComponent implements OnInit {
     }
     if (this.article != null) {
       await this.getArticleComments()
-      this.numberOfLoadedComments = 1;
+      this.numberOfLoadedComments = 5;
     }
     if (this.userComments != null) {
       await this.getUserCommentsTree()
@@ -56,19 +56,21 @@ export class CommentComponent implements OnInit {
   async getUserCommentsTree() {
     for (let i = 0; i < this.userComments.length; i++) {
       let currentUserComment = this.userComments[i]
-      let userComment: NestedComment = {
-        parent: currentUserComment,
-        kids: []
-      }
-      this.comments.push(userComment)
-      if ("kids" in currentUserComment) {
-        for (let j = 0; j < currentUserComment.kids.length; j++) {
-          let userCommentKidComment: NestedComment = {
-            parent: {} as Comment,
-            kids: []
+      if (this.checkIfCommentIsAlive(currentUserComment)) {
+        let userComment: NestedComment = {
+          parent: currentUserComment,
+          kids: []
+        }
+        this.comments.push(userComment)
+        if ("kids" in currentUserComment) {
+          for (let j = 0; j < currentUserComment.kids.length; j++) {
+            let userCommentKidComment: NestedComment = {
+              parent: {} as Comment,
+              kids: []
+            }
+            userComment.kids.push(userCommentKidComment)
+            this.addChildrenComments(userCommentKidComment, currentUserComment.kids[j])
           }
-          userComment.kids.push(userCommentKidComment)
-          this.addChildrenComments(userCommentKidComment, currentUserComment.kids[j])
         }
       }
     }
@@ -77,7 +79,7 @@ export class CommentComponent implements OnInit {
   async addChildrenComments(kid: NestedComment, kidID: number) {
     this.commentService.getComment(kidID).subscribe(
       (res) => {
-        if (res != null && res != undefined) {
+        if (res != null && res != undefined && this.checkIfCommentIsAlive(res)) {
           kid.parent = res
           if ('kids' in res) {
             for (let i = 0; i < res.kids.length; i++) {
@@ -110,6 +112,19 @@ export class CommentComponent implements OnInit {
     setTimeout(() => {
       infiniteScrollCustomEvent.target.complete();
     }, 500);
+  }
+
+  /**
+   * 
+   * @param comment 
+   * @returns true if comment is alive, false if comment is dead
+   */
+  private checkIfCommentIsAlive(comment: Comment) {
+    if (!("deleted" in comment))
+      return true
+    if (comment.deleted)
+      return false
+    return true
   }
 
 }

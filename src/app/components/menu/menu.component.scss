@@ -1,0 +1,10 @@
+ion-tab-bar, ion-tab-button{
+    background-color: #fdb896;
+}
+@media (prefers-color-scheme:dark) {
+    ion-tab-bar, ion-tab-button{
+        background-color: #121212;
+    }
+    
+    
+}

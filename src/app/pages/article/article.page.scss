@@ -1,0 +1,61 @@
+.articleDiv {
+    margin-top: 1.5rem;
+}
+
+.articleHeader {
+    margin: 1rem;
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.articleHeaderTitleAndButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.articleHeaderAuthorAndTime {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 1rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.articleTitle {
+    color: black;
+    font-size: 1.5rem;
+    flex-grow: 2;
+}
+
+.articleAuthor,
+.articleTime {
+    color: #777777;
+    font-size: 0.8rem;
+}
+
+.articleTime {
+    color: #B8B8B8;
+}
+
+.iFrameDiv {
+    display: flex;
+    justify-content: center;
+}
+
+ion-button {
+    font-size: 0;
+    margin-left: -0.4rem
+}
+
+ion-icon {
+    font-size: 2rem;
+}

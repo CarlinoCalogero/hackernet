@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
-import { User } from '../models/user.models';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -49,15 +49,17 @@ export class SearchService {
   }
 
   private buildArticleURL(query: string, articleTags: string[], timeFilters: string[]): string {
-    if(timeFilters.length > 0){
+    if(!timeFilters.includes("none")){
       if(this.buildArticleTimeSubstring(query, articleTags, timeFilters) === false) {
-        this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.upperPart + this.generateTimestamp(timeFilters);
+        this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.lowerPart + this.generateTimestamp(timeFilters);
       }
-    } else if (timeFilters.length < 0) {
-        if (this.buildArticleSubstring(query, articleTags) === false) {
-          this.url = this.articlesURL.upperPart + query;
-        }
     }
+    if (timeFilters.includes("none")) {
+      if (this.buildArticleSubstring(query, articleTags) === false) {
+        this.url = this.articlesURL.upperPart + query;
+      }
+    }
+    console.log(this.url)
     return this.url;
 }
 
@@ -71,12 +73,14 @@ export class SearchService {
           }
         })
         return true
-      } else if (!articleTags.includes(this.articlesURL.tags.author)) {
-          this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.lowerPart + this.generateTimestamp(timeFilters) + this.articlesURL.lowerPart;
-          articleTags.forEach(tag => {
-            this.url += ',' + tag;
-          });
-          return true;
+      } 
+
+      if (!articleTags.includes(this.articlesURL.tags.author)) {
+        this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.lowerPart + this.generateTimestamp(timeFilters) + this.articlesURL.lowerPart;
+        articleTags.forEach(tag => {
+          this.url += ',' + tag;
+        });
+        return true;
       }
     }
     return false;
@@ -103,19 +107,18 @@ export class SearchService {
     return false;
   }
 
-  private generateTimestamp(timeFilters: string[]){
+  private generateTimestamp(timeFilters: string[]){ 
     if(timeFilters.includes("lastHour")){
-      return (Date.now() - this.timestamps.lastHour).toString();
+      return ((Date.now() - this.timestamps.lastHour)/1000).toString();
     }
     if(timeFilters.includes("lastDay")){
-      console.log((Date.now() - this.timestamps.lastDay).toString())
-      return (Date.now() - this.timestamps.lastDay).toString();
+      return ((Date.now() - this.timestamps.lastDay)/1000).toString();
     }
     if(timeFilters.includes("lastWeek")){
-      return (Date.now() - this.timestamps.lastWeek).toString();
+      return ((Date.now() - this.timestamps.lastWeek)/1000).toString();
     }
     if(timeFilters.includes("lastMonth")){
-      return (Date.now() - this.timestamps.lastMonth).toString();
+      return ((Date.now() - this.timestamps.lastMonth)/1000).toString();
     }
     return "";
   }

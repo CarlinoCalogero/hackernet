@@ -1,0 +1,15 @@
+.outerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 2rem;
+}
+
+.customIframe {
+    height: 20rem;
+}
+
+ion-button {
+    max-width: fit-content;
+}

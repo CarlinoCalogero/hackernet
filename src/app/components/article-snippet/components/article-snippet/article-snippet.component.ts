@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Article } from 'src/app/models/article.models';
+import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
   selector: 'app-article-snippet',
@@ -10,13 +11,28 @@ import { Article } from 'src/app/models/article.models';
 export class ArticleSnippetComponent implements OnInit {
 
   @Input() article !: Article
+  @Input() showHeartIcon: boolean = false
+  protected isWasHeartClicked: boolean = false
 
-  constructor(private navController:NavController) { }
+  @Input() parentApi !: any;
 
-  ngOnInit() { }
+  constructor(private navController: NavController) { }
 
+  ngOnInit() {
+    console.log(this.article)
+  }
 
-  onClick(){
+  onClick() {
     this.navController.navigateForward(`/article/${this.article.id}`)
+  }
+
+  onHeartClick(event: Event) {
+    event.stopPropagation()
+    this.parentApi.callParentMethod(this.article.id).then((value: boolean) => {
+      this.isWasHeartClicked = value
+    })
+  }
+  onLinkClick(event:Event){
+    event.stopPropagation()
   }
 }

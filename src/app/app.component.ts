@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { DatabaseService } from './services/database.service';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { AlertController, NavController, Platform } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NavController, Platform } from '@ionic/angular/common';
-import { AlertController } from '@ionic/angular';
 import { App } from '@capacitor/app';
 
 @Component({
@@ -14,46 +14,45 @@ import { App } from '@capacitor/app';
 export class AppComponent {
   constructor(
     private storage:DatabaseService, 
-    private platform:Platform,
+    private navController:NavController,
     private location:Location,
-    private alertController:AlertController,
-    private navController:NavController
+    private platform:Platform,
+    private alertController:AlertController
     ) {
     this.initApp()
   }
 
   async initApp(){
-    console.log("Starting Up")
     await this.storage.init()
-    this.setUpBackwardNav()
     SplashScreen.hide()
-    console.log("Started")
-  }
-
-  private setUpBackwardNav(){
     this.platform.ready().then(()=>{
       this.platform.backButton.subscribeWithPriority(10,()=>{
         const url = this.location.path()
-        if(url == "/home")
-          this.showExitDialog()
+        if(url === "/home")
+          this.showCloseAppDialog()
         else
           this.navController.back()
       })
     })
   }
-  private showExitDialog(){
+
+  private showCloseAppDialog(){
     this.alertController.create({
-      header:"Do you want to exit Hakernet?",
+      header: "Closing Hackernet",
+      message:"Do you wanto to close the app",
       buttons:[{
         text:"Yes",
         role:"confirm",
-        handler: ()=>{App.exitApp()}
-      },{
-        text:"No",
-        role:"cancel"
-      }]
-    }).then((alert)=>{
-      alert.present()
-    })
+        handler: ()=>{
+          App.exitApp()
+        }}
+        ,
+        {
+          text:"No",
+          role:"cancel"
+        }
+      ]}).then(alert=>{
+        alert.present()
+      })
   }
 }

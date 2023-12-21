@@ -1,43 +1,37 @@
 
-<ion-content [fullscreen]="true" *ngIf="isUserReady(); then userCard else loading"></ion-content>
+<ion-content [fullscreen]="false"  *ngIf="isUserReady(); then userCard else loading"></ion-content>
 <ng-template #userCard>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>User Info</ion-card-title>
+      <h1 class="title">{{user!.id}}</h1>
     </ion-card-header>
    <ion-card-content>
+      <ion-card *ngIf="user!.about !== undefined">
+        {{user!.about | htmlToText}}
+      </ion-card>
+      <ion-list [inset]="true">
         <ion-item>
-          <ion-label slot="start">Username:</ion-label>
-          <ion-label>{{user!.id}}</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label slot="start">Date of Creation:</ion-label>
+          <ion-label slot="start">Created:</ion-label>
           <ion-label>{{user!.created*1000 | date}}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label slot="start">Karma:</ion-label>
           <ion-label>{{user!.karma}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="user!.about !== undefined">
-          <ion-label>About:</ion-label>
-          <ion-label>{{user!.about | htmlToText}}</ion-label>
-        </ion-item>
+        </ion-item> 
         <ion-item *ngIf="user!.delay !== undefined">
           <ion-label slot="start">Delay:</ion-label>
           <ion-label>{{user!.delay}}</ion-label>
         </ion-item>
+      </ion-list>
    </ion-card-content>
-   <ion-card>
-    <ion-card-header>
-      <ion-card-title>Submissions</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="user!.submitted !== undefined; then subLink else mess"></ion-card-content>
+   <div  *ngIf="user!.submitted !== undefined; then subLink else mess"></div>
     <ng-template #subLink>
-      <ion-button (click)="toArticles()">Articles</ion-button>
-      <ion-button (click)="toComments()">Comments</ion-button>
+      <div class="container">
+        <ion-button (click)="toArticles()">Articles</ion-button>
+        <ion-button (click)="toComments()">Comments</ion-button>
+      </div>
     </ng-template>
     <ng-template #mess><ion-label>No submission were created</ion-label></ng-template>
-  </ion-card>
   </ion-card>
 </ng-template>
 

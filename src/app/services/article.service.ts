@@ -13,9 +13,18 @@ export class ArticleService {
     lowerPart: ".json?print=pretty"
   }
 
+  private articleUrlBetterAPI = {
+    upperPart: "https://hn.algolia.com/api/v1/search_by_date?tags="
+  }
+
   constructor(private http: HttpClient) { }
 
   getArticle(articleID: number): Observable<Article> {
     return this.http.get<Article>(`${this.articleURL.upperPart}${articleID}${this.articleURL.lowerPart}`)
   }
+
+  getArticlesWithBetterAPI(selectedPage: string): Observable<any> {
+    return this.http.get<any>(`${this.articleUrlBetterAPI.upperPart}${selectedPage}`)
+  }
+
 }

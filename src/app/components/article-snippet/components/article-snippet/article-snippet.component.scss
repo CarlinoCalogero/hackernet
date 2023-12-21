@@ -1,0 +1,20 @@
+.cardHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+a{
+   color:var(--ion-color-medium) 
+}
+ion-card-title,
+ion-label {
+    word-break: break-word;
+}
+
+ion-button {
+    margin-bottom: 3rem;
+}
+
+ion-icon {
+    font-size: 2rem;
+}

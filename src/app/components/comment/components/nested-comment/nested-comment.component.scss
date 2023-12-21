@@ -1,0 +1,47 @@
+.parentCommentBox {
+    box-shadow: 0px 0px 4px 0px #00000016;
+    border-radius: 0.7rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    margin-bottom: 1rem;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 0.35rem solid transparent;
+    border-right: 0.35rem solid transparent;
+    border-top: 0.7rem solid #FF7D27;
+    margin-top: 0.2rem;
+}
+
+.thisCommentBox {
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.35rem;
+}
+
+.commentAuthor {
+    font-size: 96%;
+    color: #FF6600;
+    margin-bottom: 0.3rem;
+}
+
+.commentText {
+    font-size: 80%;
+    color: #777777;
+    line-height: 1rem;
+    word-break: break-word;
+    margin-bottom: 0.5rem;
+}
+
+.commentTime {
+    text-align: right;
+    font-size: 70%;
+    color: #B8B8B8;
+}
+
+.thisCommentContent {
+    width: 100%;
+}
