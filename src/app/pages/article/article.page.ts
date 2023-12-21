@@ -1,10 +1,8 @@
+import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute} from '@angular/router';
 import { Article } from 'src/app/models/article.models';
-import { NestedComment } from 'src/app/models/nestedComment.models';
 import { ArticleService } from 'src/app/services/article.service';
-import { CommentService } from 'src/app/services/comment.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -18,6 +16,7 @@ export class ArticlePage implements OnInit {
   protected elapsedTime!: string
   protected isFavourite: boolean | null = null
 
+  private timoutID:any
   constructor(
     private database: DatabaseService,
     private articleService: ArticleService,
@@ -25,9 +24,11 @@ export class ArticlePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadArticle().then(() => { console.log(this.isFavourite) })
+    this.loadArticle()
   }
-
+  ionViewDidLeave(){
+    clearTimeout(this.timoutID)
+  }
   async loadArticle() {
     const articleID = this.route.snapshot.params["articleID"]
     if (!articleID)
@@ -39,6 +40,10 @@ export class ArticlePage implements OnInit {
         this.checkIfArticleIsAFavouriteArticle().then((result) => {
           this.isFavourite = result
         })
+        this.timoutID = setTimeout(async ()=>{
+          await this.database.increaseWatchedArticles()
+          this.updateCategoryStats()
+        },5000)
       },
       (err) => {
         console.error(err)
@@ -98,5 +103,14 @@ export class ArticlePage implements OnInit {
   }
   getProfileUrl() {
     return `/profile/${this.article.by}`
+  }
+  updateCategoryStats(){
+    const title = this.article.title.toLocaleLowerCase()
+    if(title.startsWith("ask hn"))
+      this.database.increaseCategoryStats("ask")
+    else if(title.startsWith("show hn"))
+      this.database.increaseCategoryStats("show")
+    else
+      this.database.increaseCategoryStats(this.article.type)
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from 'src/app/services/database.service';
+import { DatabaseService, Stats } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-personal-stats',
@@ -7,14 +7,17 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./personal-stats.page.scss'],
 })
 export class PersonalStatsPage implements OnInit {
-  protected stats:any //cause i don't want to touch the service right now
+  protected stats!:Stats
 
   constructor(private database:DatabaseService) { }
 
   ngOnInit() {
     this.loadStats()
   }
+  ionViewWillEnter(){
+    this.loadStats()
+  }
   async loadStats(){
-    await this.database.getStats()
+    this.stats = await this.database.getStats()
   }
 }

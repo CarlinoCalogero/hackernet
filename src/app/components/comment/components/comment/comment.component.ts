@@ -43,6 +43,8 @@ export class CommentComponent implements OnInit {
   }
 
   async getArticleComments() {
+    if(!this.article.kids)
+      return
     for (let i = 0; i < this.article.kids.length; i++) {
       let articleComment: NestedComment = {
         parent: {} as Comment,

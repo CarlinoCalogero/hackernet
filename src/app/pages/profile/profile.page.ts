@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
+import { DatabaseService } from 'src/app/services/database.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,8 +13,13 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfilePage implements OnInit {
   protected user:User|undefined
   protected loaded:boolean=false
+  private timeoutID:any
 
-  constructor(private userService:UserService, private route:ActivatedRoute, private navController:NavController) {}
+  constructor(
+    private userService:UserService, 
+    private route:ActivatedRoute, private navController:NavController,
+    private database:DatabaseService
+    ) {}
 
   ngOnInit() {
     const userID = this.route.snapshot.params['username']
@@ -22,6 +28,15 @@ export class ProfilePage implements OnInit {
       this.loaded = true
       console.log("Loaded and found",this.user)
     })
+  }
+  ionViewDidEnter(){
+    this.timeoutID = setTimeout(()=>{
+      this.database.increaseAuthorStats(this.user!.id)
+    },5000)
+  }
+  ionViewWillLeave(){
+    console.log("Got out of profile")
+    clearTimeout(this.timeoutID)
   }
   toArticles(){
     console.log("to User Suggested Articles")

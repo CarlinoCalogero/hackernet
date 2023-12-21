@@ -3,27 +3,31 @@
     <ion-card-header>
       <h1 class="title">Personal</h1>
     </ion-card-header>
-    <ion-list *ngIf="stats">
-      <ion-item>
+   <div *ngIf="stats != null; then statsList else loading"></div>
+   
+    <ng-template #statsList>
+      <ion-list>
         <ion-item slot="start">
-          Dayly read articles : {{stats.daily}}
+          <label>Daily read articles : {{stats.daily[1]}}</label>
         </ion-item>
-      </ion-item>
-      <ion-item slot="start">
-        Monthly read articles : {{stats.monthly}}
-      </ion-item>
-      <ion-item slot="start">
-        Yearly read articles: {{stats.yearly}}
-      </ion-item>
-      <ion-item slot="start">
-        Most recurrent word in articles' title: {{stats.yearly}}
-      </ion-item>
-      <ion-item slot="start">
-        Most read author: {{stats.yearly}}
-      </ion-item>
-      <ion-item slot="start">
-        Most read author: {{stats.yearly}}
-      </ion-item>
-    </ion-list>
+        <ion-item slot="start">
+          Monthly read articles : {{stats.monthly[1]}}
+        </ion-item>
+        <ion-item slot="start">
+          Yearly read articles: {{stats.yearly[1]}}
+        </ion-item>
+        <ion-item slot="start">
+          Most read author: {{stats.author[0]}}
+        </ion-item>
+        <ion-item slot="start">
+          Most read category: {{stats.category[0]}}
+        </ion-item>
+      </ion-list>
+    </ng-template>
+    
+
+    <ng-template #loading>
+      <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+    </ng-template>
   </ion-card>
 </ion-content>
