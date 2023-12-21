@@ -10,18 +10,23 @@ import { SearchService } from 'src/app/services/search.service';
 })
 export class SearchPage implements OnInit {
 
-  query: string = '';
-  currentFilters: string[] = [];
-  currentArticleFilters: string[] = [];
-  currentTimeFilters: string[] = ["none"];
-  defaultTimeFilter: string = "none";
-  articles: any[] = [];
-  user: User|undefined;
-  isArticleSelected: boolean = false;
+  protected query: string = '';
+  private currentFilters: string[] = [];
+  private currentArticleFilters: string[] = [];
+  private currentTimeFilters: string[] = ["none"];
+  protected defaultTimeFilter: string = "none";
+  protected articles: any[] = [];
+  protected user: User|undefined;
+  protected isArticleSelected: boolean = false;
+  private isMainTagSelected: boolean = false;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.currentFilters = ["articles"];
+    this.currentArticleFilters = ["story"];
+    this.currentTimeFilters = ["none"];
+    this.isArticleSelected = true;
   }
   
   handleSelection(event:any){
@@ -39,15 +44,18 @@ export class SearchPage implements OnInit {
 
   handleTimeFilterSelection(event:any){
     this.currentTimeFilters = event.target.value;
-    console.log(this.currentTimeFilters)
     this.reset();
     this.search(this.query);
   } 
 
-
   checkIfArticleSelected(event:any) {
     this.isArticleSelected = event.target.value.includes("articles");
     return this.isArticleSelected;
+  }
+
+  checkIfMainTagSelected() {
+    this.isMainTagSelected = this.currentFilters.includes("articles") || this.currentFilters.includes("users");
+    return this.isMainTagSelected;
   }
 
   search(event?:any, query?:string){

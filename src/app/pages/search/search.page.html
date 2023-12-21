@@ -7,17 +7,17 @@
       <ion-title size="large">search</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar [(ngModel)]="query" (ionInput)="search($event)">
+  <ion-searchbar [(ngModel)]="query" (ionInput)="search($event)" [disabled]="!checkIfMainTagSelected()">
   </ion-searchbar>
   <ion-list [inset]="true" >
     <ion-item>
-      <ion-select label="Filters" [multiple]="true" (ionChange)="handleSelection($event)">
+      <ion-select label="Filters" [multiple]="true" (ionChange)="handleSelection($event)" value="articles">
         <ion-select-option value="articles">Articles</ion-select-option>
         <ion-select-option value="users">Users</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="isArticleSelected">
-      <ion-select label="Article filters" [multiple]="true" (ionChange)="handleArticleFilterSelection($event)">
+      <ion-select label="Article filters" [multiple]="true" (ionChange)="handleArticleFilterSelection($event)" value="story">
         <ion-select-option value="story">Story</ion-select-option>
         <ion-select-option value="author_">Author</ion-select-option>
         <ion-select-option value="ask_hn">Ask</ion-select-option>

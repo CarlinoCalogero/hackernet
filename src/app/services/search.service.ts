@@ -77,9 +77,7 @@ export class SearchService {
 
       if (!articleTags.includes(this.articlesURL.tags.author)) {
         this.url = this.articlesByTimeURL.upperPart + query + this.articlesByTimeURL.lowerPart + this.generateTimestamp(timeFilters) + this.articlesURL.lowerPart;
-        articleTags.forEach(tag => {
-          this.url += ',' + tag;
-        });
+        this.url += articleTags.join(',');
         return true;
       }
     }
@@ -98,9 +96,7 @@ export class SearchService {
         return true
       } else if (!articleTags.includes(this.articlesURL.tags.author)) {
           this.url = this.articlesURL.upperPart + query + this.articlesURL.lowerPart;
-          articleTags.forEach(tag => {
-            this.url += ',' + tag;
-          });
+          this.url += articleTags.join(',');
           return true;
       }
     }
