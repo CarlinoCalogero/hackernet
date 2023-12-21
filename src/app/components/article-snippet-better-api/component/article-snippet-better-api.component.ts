@@ -14,7 +14,6 @@ export class ArticleSnippetBetterApiComponent  implements OnInit {
   constructor(private navController: NavController) { }
 
   ngOnInit() {
-    console.log(this.article)
   }
 
   onClick(){

@@ -37,11 +37,7 @@
     </ion-item>
   </ion-list>
   <ion-list [inset]="true" *ngIf="query">
-    <ion-item *ngFor="let item of articles">
-      <ion-label>{{item.title}}</ion-label>
-    </ion-item>
-    <ion-item *ngIf="user !== undefined && user !== null">
-      <ion-label>{{user.id}}</ion-label>
-    </ion-item>
+      <app-article-snippet-better-api *ngFor="let item of articles" [article]="item"></app-article-snippet-better-api>
+      <app-user-snippet *ngIf="user !== undefined && user !== null" [user]="user"></app-user-snippet>
   </ion-list>
 </ion-content>
