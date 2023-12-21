@@ -11,27 +11,32 @@ import { ArticleService } from 'src/app/services/article.service';
 export class HomePage {
 
   protected articles: Article[] = [];
+  protected showedArticles: Article[] = [];
+  protected areArticlesLoaded: boolean = false;
   private articleService: ArticleService;
   private currentFilter: string = "ask_hn";
+  private numberOfArticlesShowed: number = 15;
 
 
   constructor(articleService: ArticleService) {
     this.articleService = articleService;
   }
 
-  ionViewWillEnter(){
+
+  ngOnInit() {
     this.getArticles();
   }
 
-  onIonInfinite(event: InfiniteScrollCustomEvent) {
-    this.getArticles();
-    setTimeout(() => {
-      (event as InfiniteScrollCustomEvent).target.complete();
-    }, 1000);
+  private checkIfArticlesAreLoaded() {
+    if (this.articles.length > 0) {
+      this.areArticlesLoaded = true;
+      this.generateItems();
+    }
   }
 
   loadPage(event: any){
     this.articles = [];
+    this.showedArticles = [];
     this.currentFilter = event.target.value;
     this.getArticles();
   }
@@ -40,8 +45,24 @@ export class HomePage {
     this.articleService.getArticlesWithBetterAPI(this.currentFilter).subscribe(
       (data: any) => {
         this.articles = data.hits;
+        this.checkIfArticlesAreLoaded();
       }
     )
+  }
+
+  private generateItems() {
+    let index = this.showedArticles.length;
+    const nextIndex = Math.min(this.showedArticles.length + this.numberOfArticlesShowed, this.articles.length);
+    for (; index < nextIndex; index++) {
+      this.showedArticles.push(this.articles[index]);
+    }
+  }
+
+  onIonInfinite(infiniteScrollCustomEvent: InfiniteScrollCustomEvent) {
+    this.generateItems();
+    setTimeout(() => {
+      infiniteScrollCustomEvent.target.complete();
+    }, 500);
   }
 
 }

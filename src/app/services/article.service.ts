@@ -14,7 +14,8 @@ export class ArticleService {
   }
 
   private articleUrlBetterAPI = {
-    upperPart: "https://hn.algolia.com/api/v1/search_by_date?tags="
+    upperPart: "https://hn.algolia.com/api/v1/search_by_date?tags=",
+    hitsPerPage: "&hitsPerPage=150"
   }
 
   constructor(private http: HttpClient) { }
@@ -24,7 +25,7 @@ export class ArticleService {
   }
 
   getArticlesWithBetterAPI(selectedPage: string): Observable<any> {
-    return this.http.get<any>(`${this.articleUrlBetterAPI.upperPart}${selectedPage}`)
+    return this.http.get<any>(`${this.articleUrlBetterAPI.upperPart}${selectedPage}${this.articleUrlBetterAPI.hitsPerPage}`)
   }
 
 }
