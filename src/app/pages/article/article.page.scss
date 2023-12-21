@@ -34,6 +34,7 @@
     color: black;
     font-size: 1.5rem;
     flex-grow: 2;
+    font-weight: bolder;
 }
 
 .articleAuthor,
@@ -58,4 +59,10 @@ ion-button {
 
 ion-icon {
     font-size: 2rem;
+}
+
+@media (prefers-color-scheme:dark) {
+    .articleTitle{
+        color:white;
+    }
 }

@@ -1,23 +1,31 @@
-<ion-content [fullscreen]="true">
-  <div class="articleDiv" *ngIf="article != null">
-    <div class="articleHeader">
-      <div class="articleHeaderTitleAndButtons">
-        <h1 class="articleTitle">{{article.title}}</h1>
-        <div class="buttons">
-          <app-share-button slot="end" [article]="article"></app-share-button>
-          <ion-button *ngIf="isFavourite != null" fill="clear" slot="icon-only" (click)="onHeartClick($event)">
-            <ion-icon [name]="isFavourite ? 'heart' : 'heart-outline'"></ion-icon>
-          </ion-button>
+<div *ngIf="article != null; then articleContent else loading"></div>
+
+<ng-template #articleContent>
+  <ion-content [fullscreen]="true">
+    <div class="articleDiv">
+      <div class="articleHeader">
+        <div class="articleHeaderTitleAndButtons">
+          <h1 class="articleTitle">{{article.title}}</h1>
+          <div class="buttons">
+            <app-share-button slot="end" [article]="article"></app-share-button>
+            <ion-button *ngIf="isFavourite != null" fill="clear" slot="icon-only" (click)="onHeartClick($event)">
+              <ion-icon [name]="isFavourite ? 'heart' : 'heart-outline'"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+        <div class="articleHeaderAuthorAndTime">
+          <a href="{{'/profile/'+ article.by}}" class="articleAuthor">by {{article.by}}</a>
+          <label class="articleTime">{{elapsedTime}}</label>
         </div>
       </div>
-      <div class="articleHeaderAuthorAndTime">
-        <a href="{{'/profile/'+ article.by}}" class="articleAuthor">by {{article.by}}</a>
-        <label class="articleTime">{{elapsedTime}}</label>
+      <div *ngIf="article.url" class="iFrameDiv">
+        <app-iframe [url]="article.url"></app-iframe>
       </div>
+      <app-comment [article]="article"></app-comment>
     </div>
-    <div *ngIf="article.url" class="iFrameDiv">
-      <app-iframe [url]="article.url"></app-iframe>
-    </div>
-    <app-comment [article]="article"></app-comment>
-  </div>
-</ion-content>
+  </ion-content>
+</ng-template>
+
+<ng-template #loading>
+  <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+</ng-template>
