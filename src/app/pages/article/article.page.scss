@@ -43,6 +43,11 @@
     font-size: 0.8rem;
 }
 
+.articleText {
+    word-break: break-word;
+    padding: 1rem 1.5rem 0 1.5rem;
+}
+
 .articleTime {
     color: #B8B8B8;
 }
@@ -62,7 +67,7 @@ ion-icon {
 }
 
 @media (prefers-color-scheme:dark) {
-    .articleTitle{
-        color:white;
+    .articleTitle {
+        color: white;
     }
 }

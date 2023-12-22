@@ -1,6 +1,6 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/article.models';
 import { ArticleService } from 'src/app/services/article.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -13,10 +13,9 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class ArticlePage implements OnInit {
 
   protected article!: Article
-  protected elapsedTime!: string
   protected isFavourite: boolean | null = null
 
-  private timoutID:any
+  private timoutID: any
   constructor(
     private database: DatabaseService,
     private articleService: ArticleService,
@@ -26,7 +25,7 @@ export class ArticlePage implements OnInit {
   ngOnInit() {
     this.loadArticle()
   }
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     clearTimeout(this.timoutID)
   }
   async loadArticle() {
@@ -36,14 +35,14 @@ export class ArticlePage implements OnInit {
     this.articleService.getArticle(articleID).subscribe(
       (res) => {
         this.article = res
-        this.elapsedTime = this.computeTime();
+        console.log(res)
         this.checkIfArticleIsAFavouriteArticle().then((result) => {
           this.isFavourite = result
         })
-        this.timoutID = setTimeout(async ()=>{
+        this.timoutID = setTimeout(async () => {
           await this.database.increaseWatchedArticles()
           this.updateCategoryStats()
-        },5000)
+        }, 5000)
       },
       (err) => {
         console.error(err)
@@ -54,38 +53,6 @@ export class ArticlePage implements OnInit {
   async checkIfArticleIsAFavouriteArticle() {
     const favourites = await this.database.getFavourites()
     return favourites.indexOf(this.article.id) != -1
-  }
-
-  private computeTime() {
-    const todaysTime: number = new Date().getTime() / 1000
-    let secondsDifference: number = todaysTime - this.article.time
-
-    const secondsInAYear = 365 * 24 * 60 * 60
-    let years = Math.floor(secondsDifference / secondsInAYear)
-    secondsDifference -= years * secondsInAYear
-
-    const secondsInAMonth = 30 * 24 * 60 * 60
-    let months = Math.floor(secondsDifference / secondsInAMonth)
-    secondsDifference -= months * secondsInAMonth
-
-    const secondsInADay = 24 * 60 * 60
-    let days = Math.floor(secondsDifference / secondsInADay)
-    secondsDifference -= days * secondsInADay
-
-    const secondsInAnHour = 60 * 60
-    let hours = Math.floor(secondsDifference / secondsInAnHour)
-    secondsDifference -= hours * secondsInAnHour
-
-    const secondsInAMinute = 60
-    let minutes = Math.floor(secondsDifference / secondsInAMinute)
-    secondsDifference -= minutes * secondsInAMinute
-
-    return `${years != 0 ? ` ${years} years` :
-      `${months != 0 ? ` ${months} months` :
-        `${days != 0 ? `${days} days` :
-          `${hours != 0 ? ` ${hours} hours` :
-            `${minutes != 0 ? ` ${minutes} minutes ` :
-              `${secondsDifference} seconds`}`}`}`}`} ago`
   }
 
   async onHeartClick(event: Event) {
@@ -104,11 +71,11 @@ export class ArticlePage implements OnInit {
   getProfileUrl() {
     return `/profile/${this.article.by}`
   }
-  updateCategoryStats(){
+  updateCategoryStats() {
     const title = this.article.title.toLocaleLowerCase()
-    if(title.startsWith("ask hn"))
+    if (title.startsWith("ask hn"))
       this.database.increaseCategoryStats("ask")
-    else if(title.startsWith("show hn"))
+    else if (title.startsWith("show hn"))
       this.database.increaseCategoryStats("show")
     else
       this.database.increaseCategoryStats(this.article.type)

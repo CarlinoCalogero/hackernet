@@ -4,7 +4,7 @@
     <div class="thisCommentContent">
       <ion-label class="commentAuthor"><a href="{{'/profile/'+nestedComment.parent.by}}">{{nestedComment.parent.by | htmlToText}}</a></ion-label>
       <ion-label class="commentText">{{nestedComment.parent.text | htmlToText}}</ion-label>
-      <ion-label class="commentTime">{{elapsedTime}}</ion-label>
+      <ion-label class="commentTime">{{nestedComment.parent.time | dateToString}}</ion-label>
     </div>
   </div>
   <ion-list lines="none">

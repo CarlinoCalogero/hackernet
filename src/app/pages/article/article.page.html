@@ -15,12 +15,13 @@
         </div>
         <div class="articleHeaderAuthorAndTime">
           <a href="{{'/profile/'+ article.by}}" class="articleAuthor">by {{article.by}}</a>
-          <label class="articleTime">{{elapsedTime}}</label>
+          <label *ngIf="article.time" class="articleTime">{{article.time | dateToString}}</label>
         </div>
       </div>
       <div *ngIf="article.url" class="iFrameDiv">
         <app-iframe [url]="article.url"></app-iframe>
       </div>
+      <p *ngIf="article.text" class="articleText">{{article.text | htmlToText}}</p>
       <app-comment [article]="article"></app-comment>
     </div>
   </ion-content>

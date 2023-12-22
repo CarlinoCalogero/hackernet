@@ -10,6 +10,7 @@ import { ArticlePage } from './article.page';
 import { CommentModule } from 'src/app/components/comment/comment.module';
 import { IframeModule } from 'src/app/components/iframe/iframe.module';
 import { ShareButtonModule } from 'src/app/components/share-button/share-button.module';
+import { PipeModule } from 'src/app/pipes/pipe.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ShareButtonModule } from 'src/app/components/share-button/share-button.
     ArticlePageRoutingModule,
     CommentModule,
     IframeModule,
-    ShareButtonModule
+    ShareButtonModule,
+    PipeModule
   ],
   declarations: [ArticlePage]
 })
