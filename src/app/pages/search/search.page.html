@@ -2,12 +2,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">search</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-searchbar [(ngModel)]="query" (ionInput)="search($event)" [disabled]="!checkIfMainTagSelected()">
+  <ion-searchbar [(ngModel)]="query" (ionInput)="search($event)" [disabled]="!checkIfMainTagSelected()" [placeholder]="currentPlaceholder">
   </ion-searchbar>
   <ion-list [inset]="true" >
     <ion-item>

@@ -19,6 +19,7 @@ export class SearchPage implements OnInit {
   protected user: User|undefined;
   protected isArticleSelected: boolean = false;
   private isMainTagSelected: boolean = false;
+  protected currentPlaceholder: string = "Search Articles";
 
   constructor(private searchService: SearchService) { }
 
@@ -29,36 +30,54 @@ export class SearchPage implements OnInit {
     this.isArticleSelected = true;
   }
   
-  handleSelection(event:any){
+  protected handleSelection(event:any){
     this.currentFilters = event.target.value;
+    this.setCurrentPlaceholder();
     this.checkIfArticleSelected(event);
     this.reset();
     this.search(this.query);
   }
 
-  handleArticleFilterSelection(event:any){
+  protected handleArticleFilterSelection(event:any){
     this.currentArticleFilters = event.target.value;
     this.reset();
     this.search(this.query);
   }
 
-  handleTimeFilterSelection(event:any){
+  protected handleTimeFilterSelection(event:any){
     this.currentTimeFilters = event.target.value;
     this.reset();
     this.search(this.query);
   } 
 
-  checkIfArticleSelected(event:any) {
+  protected checkIfArticleSelected(event:any) {
     this.isArticleSelected = event.target.value.includes("articles");
     return this.isArticleSelected;
   }
 
-  checkIfMainTagSelected() {
+  protected checkIfMainTagSelected() {
     this.isMainTagSelected = this.currentFilters.includes("articles") || this.currentFilters.includes("users");
     return this.isMainTagSelected;
   }
 
-  search(event?:any, query?:string){
+  private setCurrentPlaceholder() {
+    switch (true) {
+      case this.currentFilters.length === 0:
+        this.currentPlaceholder = "Select a filter";
+        break;
+      case this.currentFilters.includes("articles") && this.currentFilters.includes("users"):
+        this.currentPlaceholder = "Search Articles & Users";
+        break;
+      case this.currentFilters.includes("articles"):
+        this.currentPlaceholder = "Search Articles";
+        break;
+      case this.currentFilters.includes("users"):
+        this.currentPlaceholder = "Search Users";
+        break;
+    }
+  }
+
+  protected search(event?:any, query?:string){
     if (event.target !== undefined) {
       this.query = event.target.value;
     } else if (query !== undefined) {
@@ -92,7 +111,7 @@ export class SearchPage implements OnInit {
   }
 
 
-  reset() {
+  private reset() {
     this.articles = [];
     this.user = undefined;
   }

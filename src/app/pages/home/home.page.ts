@@ -34,7 +34,7 @@ export class HomePage {
     }
   }
 
-  loadPage(event: any){
+  protected loadPage(event: any){
     this.articles = [];
     this.showedArticles = [];
     this.currentFilter = event.target.value;
@@ -58,7 +58,7 @@ export class HomePage {
     }
   }
 
-  onIonInfinite(infiniteScrollCustomEvent: InfiniteScrollCustomEvent) {
+  protected onIonInfinite(infiniteScrollCustomEvent: InfiniteScrollCustomEvent) {
     this.generateItems();
     setTimeout(() => {
       infiniteScrollCustomEvent.target.complete();
