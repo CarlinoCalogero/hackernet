@@ -29,14 +29,12 @@ export class SuggestedPage implements OnInit {
   ngOnInit() {
     const username = this.route.snapshot.params["username"]
     this.userService.getUser(username).subscribe((user) => {
-      console.log(user)
       this.userSuggestions = user?.submitted!
       this.loadUserSuggestedArticles()
     })
   }
 
   async loadUserSuggestedArticles() {
-    console.log(this.userSuggestions)
     for (let i = 0; i < this.userSuggestions.length; i++) {
       this.articleService.getArticle(this.userSuggestions[i]).subscribe(
         (res) => {

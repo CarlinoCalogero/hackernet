@@ -23,14 +23,12 @@ export class CommentsPage implements OnInit {
   ngOnInit() {
     const username = this.route.snapshot.params["username"]
     this.userService.getUser(username).subscribe((user) => {
-      console.log(user)
       this.userSubmitted = user?.submitted!
       this.loadUserComments()
     })
   }
 
   async loadUserComments() {
-    console.log(this.userSubmitted)
     for (let i = 0; i < this.userSubmitted.length; i++) {
       this.commentService.getComment(this.userSubmitted[i]).subscribe(
         (res) => {

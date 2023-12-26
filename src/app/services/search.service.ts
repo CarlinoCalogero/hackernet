@@ -59,7 +59,6 @@ export class SearchService {
         this.url = this.articlesURL.upperPart + query;
       }
     }
-    console.log(this.url)
     return this.url;
 }
 

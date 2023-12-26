@@ -1,7 +1,7 @@
 <ion-card (click)="onClick()">
   <ion-card-header>
     <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
-     by {{article.author}} {{article.created_at | date}}
+     <label>by <a href = "{{'/profile/'+article.author}}" (click)="onLinkClick($event)">{{article.author}}</a> {{article.created_at | date}}</label>
   </ion-card-header>
   <ion-card-content>
     <ion-label>{{article.points}} points {{article.num_comments}} comments </ion-label>

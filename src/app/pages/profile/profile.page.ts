@@ -26,7 +26,6 @@ export class ProfilePage implements OnInit {
     this.userService.getUser(userID).subscribe((user)=>{
       this.user = user
       this.loaded = true
-      console.log("Loaded and found",this.user)
     })
   }
   ionViewDidEnter(){
@@ -35,15 +34,12 @@ export class ProfilePage implements OnInit {
     },5000)
   }
   ionViewWillLeave(){
-    console.log("Got out of profile")
     clearTimeout(this.timeoutID)
   }
   toArticles(){
-    console.log("to User Suggested Articles")
     this.navController.navigateForward(`/suggested/${this.user?.id}`)
   }
   toComments(){
-    console.log("to User Comments")
     this.navController.navigateForward(`/comments/${this.user?.id}`)
   }
   isUserReady(){

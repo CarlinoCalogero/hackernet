@@ -19,7 +19,6 @@ export class ArticleSnippetComponent implements OnInit {
   constructor(private navController: NavController) { }
 
   ngOnInit() {
-    console.log(this.article)
   }
 
   onClick() {

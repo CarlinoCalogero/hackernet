@@ -35,7 +35,6 @@ export class ArticlePage implements OnInit {
     this.articleService.getArticle(articleID).subscribe(
       (res) => {
         this.article = res
-        console.log(res)
         this.checkIfArticleIsAFavouriteArticle().then((result) => {
           this.isFavourite = result
         })
@@ -57,16 +56,12 @@ export class ArticlePage implements OnInit {
 
   async onHeartClick(event: Event) {
     event.stopPropagation()
-    console.log(this.isFavourite)
     if (this.isFavourite) {
       this.database.removeFavourite(this.article.id)
-      console.log("remove")
     } else {
       this.database.addFavourite(this.article.id)
-      console.log("add")
     }
     this.isFavourite = !this.isFavourite
-    console.log(this.isFavourite)
   }
   getProfileUrl() {
     return `/profile/${this.article.by}`

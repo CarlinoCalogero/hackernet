@@ -19,5 +19,7 @@ export class ArticleSnippetBetterApiComponent  implements OnInit {
   onClick(){
     this.navController.navigateForward(`/article/${this.article.objectID}`)
   }
-
+  onLinkClick(event:Event){
+    event.stopPropagation()
+  }
 }

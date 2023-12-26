@@ -42,7 +42,6 @@ export class DatabaseService {
       }
     }
     if(savedStats.daily[0] != this.currentDate.getDate()){
-      console.log(savedStats.daily[0],this.currentDate.getDate())
       savedStats.daily[1] = 0
       modified = true
     }
@@ -97,15 +96,12 @@ export class DatabaseService {
     let modified=false
     const savedStats = await this.getStats()
     let count = this.runtimeAuthorAndCategoryStats.get(key) || 0
-    console.log(key,count)
     if(savedStats.author[1] <= count+1){
       savedStats.author[0] = key
       savedStats.author[1] = count+1
       modified = true
     }
-    console.log("Aggiungo")
     this.runtimeAuthorAndCategoryStats.set(key,count+1)
-    console.log(this.runtimeAuthorAndCategoryStats)
     if(modified){
       await this.setStats(savedStats)
     }
@@ -114,7 +110,6 @@ export class DatabaseService {
     let modified=false
     const savedStats = await this.getStats()
     let count = this.runtimeAuthorAndCategoryStats.get(key) || 0
-    console.log(key,count,savedStats.category[1])
     if(savedStats.category[1] <= count+1){
       savedStats.category[0] = key
       savedStats.category[1] = count+1
