@@ -16,6 +16,8 @@ export class HomePage {
   private articleService: ArticleService;
   private currentFilter: string = "ask_hn";
   private numberOfArticlesShowed: number = 15;
+  private currentRequestId: number = 0;
+
 
 
   constructor(articleService: ArticleService) {
@@ -42,10 +44,15 @@ export class HomePage {
   }
 
   private getArticles(){
+    this.currentRequestId++;
+    const requestId = this.currentRequestId;
+
     this.articleService.getArticlesWithBetterAPI(this.currentFilter).subscribe(
       (data: any) => {
-        this.articles = data.hits;
-        this.checkIfArticlesAreLoaded();
+        if(requestId === this.currentRequestId) {
+          this.articles = data.hits;
+          this.checkIfArticlesAreLoaded();
+        }
       }
     )
   }

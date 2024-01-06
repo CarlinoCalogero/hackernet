@@ -3,7 +3,7 @@
     <ion-card-title>{{article.title | htmlToText}}</ion-card-title>
      <label>by <a href = "{{'/profile/'+article.author}}" (click)="onLinkClick($event)">{{article.author}}</a> {{article.created_at | date}}</label>
   </ion-card-header>
-  <ion-card-content>
+  <ion-card-content *ngIf="article.points !== undefined && article.num_comments !== undefined">
     <ion-label>{{article.points}} points {{article.num_comments}} comments </ion-label>
   </ion-card-content>
 </ion-card>
