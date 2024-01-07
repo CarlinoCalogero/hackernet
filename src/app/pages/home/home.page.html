@@ -30,7 +30,7 @@
  </ng-template>
 
  <ng-template #loading>
-  <div *ngIf="areArticlesLoaded; then empty else loadAnim"></div>
+  <div *ngIf="areArticlesLoaded; then loadAnim else empty"></div>
 </ng-template>
 
 <ng-template #loadAnim>
