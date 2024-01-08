@@ -14,10 +14,13 @@ export class PersonalStatsPage implements OnInit {
   ngOnInit() {
     this.loadStats()
   }
+
   ionViewWillEnter(){
     this.loadStats()
   }
+
   async loadStats(){
     this.stats = await this.database.getStats()
   }
+  
 }

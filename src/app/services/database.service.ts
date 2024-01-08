@@ -6,6 +6,7 @@ enum KEYS {
   favourites = 'favourites',
   stats = 'stats'
 }
+
 // These are subject to change most definitely...
 export interface Stats {
   daily: number[]
@@ -27,6 +28,7 @@ export class DatabaseService {
   constructor(private storage: Storage) {
     this.storage.defineDriver(cordovaSQLiteDriver)
   }
+
   async init() {
     await this.storage.create()
     let modified:boolean = false
@@ -41,26 +43,32 @@ export class DatabaseService {
         category:["",0]
       }
     }
+
     if(savedStats.daily[0] != this.currentDate.getDate()){
       savedStats.daily[0] = this.currentDate.getDate()
       savedStats.daily[1] = 0
       modified = true
     }
+
     if(savedStats.monthly[0] != this.currentDate.getMonth()){
-      savedStats.monthly[0] = this.currentDate.getMonth()
+      savedStats.monthly[0]=this.currentDate.getMonth()
       savedStats.monthly[1] = 0
       modified = true
     }
+
     if(savedStats.yearly[0] != this.currentDate.getFullYear()){
       savedStats.yearly[0] = this.currentDate.getFullYear()
       savedStats.yearly[1] = 0
       modified = true
     }
+
     this.runtimeAuthorAndCategoryStats.set(savedStats.author[0],savedStats.author[1])
     this.runtimeAuthorAndCategoryStats.set(savedStats.category[0],savedStats.category[1])
+
     if(modified){
       await this.setStats(savedStats)
     }
+
   }
 
   async getFavourites(): Promise<number[]> {
@@ -96,7 +104,7 @@ export class DatabaseService {
   }
 
   async increaseAuthorStats(key:string){
-    let modified=false
+    let modified = false
     const savedStats = await this.getStats()
     let count = this.runtimeAuthorAndCategoryStats.get(key) || 0
     if(savedStats.author[1] <= count+1){
@@ -109,20 +117,25 @@ export class DatabaseService {
       await this.setStats(savedStats)
     }
   }
+
   async increaseCategoryStats(key:string){
-    let modified=false
+    let modified = false
     const savedStats = await this.getStats()
     let count = this.runtimeAuthorAndCategoryStats.get(key) || 0
+
     if(savedStats.category[1] <= count+1){
       savedStats.category[0] = key
       savedStats.category[1] = count+1
       modified = true
     }
+
     this.runtimeAuthorAndCategoryStats.set(key,count+1)
     if(modified){
       await this.setStats(savedStats)
     }
+    
   }
+
   async increaseWatchedArticles(){
     const savedStats = await this.getStats()
     savedStats.daily[1]++
@@ -130,4 +143,5 @@ export class DatabaseService {
     savedStats.yearly[1]++
     await this.setStats(savedStats)
   }
+
 }

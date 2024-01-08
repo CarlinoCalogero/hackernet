@@ -28,23 +28,29 @@ export class ProfilePage implements OnInit {
       this.loaded = true
     })
   }
+
   ionViewDidEnter(){
     this.timeoutID = setTimeout(()=>{
       this.database.increaseAuthorStats(this.user!.id)
     },5000)
   }
+
   ionViewWillLeave(){
     clearTimeout(this.timeoutID)
   }
+
   toArticles(){
     this.navController.navigateForward(`/suggested/${this.user?.id}`)
   }
+
   toComments(){
     this.navController.navigateForward(`/comments/${this.user?.id}`)
   }
+
   isUserReady(){
     if(!this.user)
       return false
     return this.loaded
   }
+  
 }

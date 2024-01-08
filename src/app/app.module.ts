@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +12,7 @@ import { ArticleSnippetModule } from './components/article-snippet/article-snipp
 import {IonicStorageModule} from '@ionic/storage-angular'
 import {_driver} from 'localforage-cordovasqlitedriver'
 import { Drivers } from '@ionic/storage';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, 
@@ -25,4 +24,5 @@ import { Drivers } from '@ionic/storage';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }

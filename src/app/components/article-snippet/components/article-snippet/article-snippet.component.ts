@@ -31,7 +31,9 @@ export class ArticleSnippetComponent implements OnInit {
       this.isWasHeartClicked = value
     })
   }
+
   onLinkClick(event:Event){
     event.stopPropagation()
   }
+  
 }

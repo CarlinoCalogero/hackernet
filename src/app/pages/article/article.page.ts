@@ -1,4 +1,3 @@
-import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/models/article.models';
@@ -15,7 +14,8 @@ export class ArticlePage implements OnInit {
   protected article!: Article
   protected isFavourite: boolean | null = null
 
-  private timoutID: any
+  private timeoutID: any
+
   constructor(
     private database: DatabaseService,
     private articleService: ArticleService,
@@ -25,9 +25,11 @@ export class ArticlePage implements OnInit {
   ngOnInit() {
     this.loadArticle()
   }
+
   ionViewDidLeave() {
-    clearTimeout(this.timoutID)
+    clearTimeout(this.timeoutID)
   }
+
   async loadArticle() {
     const articleID = this.route.snapshot.params["articleID"]
     if (!articleID)
@@ -38,7 +40,7 @@ export class ArticlePage implements OnInit {
         this.checkIfArticleIsAFavouriteArticle().then((result) => {
           this.isFavourite = result
         })
-        this.timoutID = setTimeout(async () => {
+        this.timeoutID = setTimeout(async () => {
           await this.database.increaseWatchedArticles()
           this.updateCategoryStats()
         }, 5000)
@@ -63,16 +65,20 @@ export class ArticlePage implements OnInit {
     }
     this.isFavourite = !this.isFavourite
   }
+
   getProfileUrl() {
     return `/profile/${this.article.by}`
   }
+  
   updateCategoryStats() {
-    const title = this.article.title.toLocaleLowerCase()
-    if (title.startsWith("ask hn"))
+    const title = this.article.title.toLowerCase()
+    if (title.startsWith("ask hn")){
       this.database.increaseCategoryStats("ask")
+    }
     else if (title.startsWith("show hn"))
       this.database.increaseCategoryStats("show")
     else
       this.database.increaseCategoryStats(this.article.type)
   }
+
 }

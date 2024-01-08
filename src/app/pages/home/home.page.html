@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<div  *ngIf="showedArticles.length > 0; then suggestedList else loading"></div>
+<div *ngIf="showedArticles.length > 0; then suggestedList else loading"></div>
 
 <ng-template #suggestedList>
   <ion-content [fullscreen]="true">
@@ -34,7 +34,9 @@
 </ng-template>
 
 <ng-template #loadAnim>
-  <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+  <div class = "loading-bar">
+    <ion-progress-bar type="indeterminate" ></ion-progress-bar>
+  </div>
 </ng-template>
 
 <ng-template #empty>
