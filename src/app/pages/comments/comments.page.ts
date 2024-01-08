@@ -24,7 +24,10 @@ export class CommentsPage implements OnInit {
     const username = this.route.snapshot.params["username"]
     this.userService.getUser(username).subscribe((user) => {
       this.userSubmitted = user?.submitted!
-      this.loadUserComments()
+      if(this.userSubmitted == undefined)
+        this.isAreCommentLoaded = true
+      else
+        this.loadUserComments()
     })
   }
 
