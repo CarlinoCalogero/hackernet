@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DatabaseService } from './services/database.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { AlertController, NavController, Platform } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { App } from '@capacitor/app';
 
@@ -39,7 +38,7 @@ export class AppComponent {
   private showCloseAppDialog(){
     this.alertController.create({
       header: "Closing Hackernet",
-      message:"Do you wanto to close the app",
+      message:"Do you want to close the app",
       buttons:[{
         text:"Yes",
         role:"confirm",
