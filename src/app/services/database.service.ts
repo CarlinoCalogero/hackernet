@@ -42,14 +42,17 @@ export class DatabaseService {
       }
     }
     if(savedStats.daily[0] != this.currentDate.getDate()){
+      savedStats.daily[0] = this.currentDate.getDate()
       savedStats.daily[1] = 0
       modified = true
     }
     if(savedStats.monthly[0] != this.currentDate.getMonth()){
+      savedStats.monthly[0] = this.currentDate.getMonth()
       savedStats.monthly[1] = 0
       modified = true
     }
     if(savedStats.yearly[0] != this.currentDate.getFullYear()){
+      savedStats.yearly[0] = this.currentDate.getFullYear()
       savedStats.yearly[1] = 0
       modified = true
     }
